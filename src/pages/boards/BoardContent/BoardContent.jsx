@@ -51,7 +51,7 @@ export default function BoardContent({ board }) {
       const activeColumn = findColumnByCardId(active._id)
       const overColumn = findColumnByCardId(over._id)
 
-      const overIndex = overColumn.cardOrderIds.findIndex(cardId => cardId === over._id)
+      let overIndex = overColumn.cardOrderIds.findIndex(cardId => cardId === over._id)
 
       const newColumns = _.cloneDeep(columns)
 
@@ -62,11 +62,11 @@ export default function BoardContent({ board }) {
         }
 
         if (column._id === overColumn._id) {
-          if (overIndex === column.cardOrderIds.length - 1) {
-            column.cardOrderIds.push(active._id)
-          } else {
-            column.cardOrderIds.splice(overIndex, 0, active._id)
+          if (overIndex, overColumn, overIndex === overColumn.cardOrderIds.length - 1) {
+            overIndex = overIndex + 1
           }
+
+          column.cardOrderIds.splice(overIndex, 0, active._id)
           column.cards.push(active)
           active.columnId = over.columnId
         }
