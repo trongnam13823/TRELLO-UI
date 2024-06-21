@@ -16,8 +16,7 @@ export default function ListCards({ cards, columnId }) {
           gap: 1.5,
           height: 'fit-content',
           maxHeight: (t) => `calc(100vh - ${t.appBarHeight} - ${t.boardBarHeight} - ${t.spacing(5)} - ${t.columnHeaderHeight} - ${t.columnFooterHeight})`,
-          overflow: 'hidden auto',
-          transition: 'all 1s ease'
+          overflow: 'hidden auto'
         }}
       >
         {

@@ -8,7 +8,7 @@ import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
 import _ from 'lodash'
 export default function BoardContent({ board }) {
-  const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } })
+  const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 5 } })
   const touchSensor = useSensor(TouchSensor, { activationConstraint: { delay: 250, distance: 500 } })
   const sensors = useSensors(mouseSensor, touchSensor)
 
@@ -45,6 +45,8 @@ export default function BoardContent({ board }) {
     const isActiveCard = Boolean(active?.columnId)
     const isOverCard = Boolean(over?.columnId)
 
+    console.log(active, over)
+
     if (isActiveCard && isOverCard && active._id !== over._id) {
       const activeColumn = findColumnByCardId(active._id)
       const overColumn = findColumnByCardId(over._id)
@@ -60,7 +62,11 @@ export default function BoardContent({ board }) {
         }
 
         if (column._id === overColumn._id) {
-          column.cardOrderIds.splice(overIndex, 0, active._id)
+          if (overIndex === column.cardOrderIds.length - 1) {
+            column.cardOrderIds.push(active._id)
+          } else {
+            column.cardOrderIds.splice(overIndex, 0, active._id)
+          }
           column.cards.push(active)
           active.columnId = over.columnId
         }
